@@ -758,3 +758,34 @@ function mcCloud() {
     return [offset.x, offset.y, w, h];
 }
 register(mcCloud, "Mc Cloud", "Rodolphe Peccatte");
+
+function HappyLittleCloud(){
+  let point = [];
+  let corners = floor(random(8,15));
+  let ang = ((180*(corners-2))/corners);
+  let angThing = ang-90;
+  let angOffset = 90-angThing;
+  let angle = angOffset;
+
+  fill(255);
+  beginShape();
+
+  for(let i = 0; i<corners; i++){
+    let dist = random((width/corners)*0.75,(width/corners)*1.5);
+    if(i > 0){
+      let tempX = (dist * cos(angle));
+      let tempY = dist * sin(angle);
+      point[i] = {x: tempX+point[i-1].x, y: tempY+point[i-1].y};
+    } else {
+      point[0] = {x :0, y: 0};
+    }
+    angleMode(DEGREES);
+    stroke(100);
+    ellipse(point[i].x,point[i].y,dist*2,dist*2);
+    noStroke();
+    vertex(point[i].x,point[i].y);
+    angle-=angOffset;
+  }
+  endShape(CLOSE);
+}
+register(HappyLittleCloud,"Happy Little Cloud", "P1g3oN");
